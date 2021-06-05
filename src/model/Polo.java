@@ -19,28 +19,53 @@ public class Polo extends Automaton implements Runnable{
 	}
 	
 	
-	private void movePolo() {
+	public void movePolo() {
+		
+		
+		if (posX > app.width) {
+			posX = app.width;
+			speedX = -speedX;
+
+		}
+		if (posY > app.height) {
+			posY = app.height;
+			speedY = -speedY;
+
+		}
+		if (posX < 0) {
+			posX = 0;
+			speedX = -speedX;
+
+		}
+		if (posY < 0) {
+			posY = 0;
+			speedY = -speedY;
+
+		}
+		
 		super.moveAutomaton();
 		//+System.out.println("move");
 	}
 	
+
+	
+	public void sayMessage() {
+		app.text(message+": "+posX+","+posY, posX - sizeBall/2, posY+sizeBall);
+	}
+	
 	@Override
 	public void run() {
-		moveAutomaton();
+		movePolo();
 		
 		try {
 			
 			Thread.sleep(10);
 			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-	}
-	
-	public void sayMessage() {
-		app.text(message+": "+posX+","+posY, posX - sizeBall/2, posY+sizeBall);
 	}
 
 

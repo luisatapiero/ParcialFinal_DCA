@@ -33,29 +33,10 @@ public class Automaton{
 		posX += speedX;
 		posY += speedY;
 
-		if (posX > app.width) {
-			posX = app.width;
-			speedX = -speedX;
-
-		}
-		if (posY > app.height) {
-			posY = app.height;
-			speedY = -speedY;
-
-		}
-		if (posX < 0) {
-			posX = 0;
-			speedX = -speedX;
-
-		}
-		if (posY < 0) {
-			posY = 0;
-			speedY = -speedY;
-
-		}
 
 	}
 	
+
 	
 
 	public int getPosX() {
@@ -101,6 +82,9 @@ public class Automaton{
 	public int getSizeBall() {
 		return sizeBall;
 	}
+
+
+
 
 	
 
