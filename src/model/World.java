@@ -35,7 +35,7 @@ public class World {
 
 		for (int i = 0; i < poloList.size(); i++) {
 			poloList.get(i).drawPolo();
-			poloList.get(i).movePolo();
+			new Thread(poloList.get(i)).start();
 			// System.out.println(automatonList.get(0).getMessage());
 		}
 

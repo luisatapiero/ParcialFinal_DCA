@@ -2,7 +2,7 @@ package model;
 
 import processing.core.PApplet;
 
-public class Marco extends Automaton {
+public class Marco extends Automaton implements Runnable{
 
 	public Marco(int posX, int posY, int speedX, int speedY, String message, PApplet app) {
 		super(posX, posY, speedX, speedY, message, app);
@@ -21,8 +21,14 @@ public class Marco extends Automaton {
 		
 	}
 	
-	public void moveMarco() {
+	private void moveMarco() {
 		super.moveAutomaton();
+	}
+
+	@Override
+	public void run() {
+		moveMarco();
+		
 	}
 
 }

@@ -2,7 +2,7 @@ package model;
 
 import processing.core.PApplet;
 
-public class Polo extends Automaton{
+public class Polo extends Automaton implements Runnable{
 
 	public Polo(int posX, int posY, int speedX, int speedY, String message, PApplet app) {
 		super(posX, posY, speedX, speedY, message, app);
@@ -19,8 +19,26 @@ public class Polo extends Automaton{
 	}
 	
 	
-	public void movePolo() {
+	private void movePolo() {
 		super.moveAutomaton();
 		//System.out.println("move");
 	}
+
+	@Override
+	public void run() {
+		
+		moveAutomaton();
+		
+		try {
+			
+			Thread.sleep(10);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+
 }
