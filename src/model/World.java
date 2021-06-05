@@ -7,35 +7,38 @@ import processing.core.PApplet;
 public class World {
 
 	PApplet app;
-	private ArrayList<Automaton> automatonList;
+	private Marco marco;
+	private ArrayList<Polo> poloList;
 
 	public World(PApplet app) {
 
 		this.app = app;
-		automatonList = new ArrayList<Automaton>();
+		poloList = new ArrayList<Polo>();
 		createAutomatons();
 
 	}
 
 	private void createAutomatons() {
-		automatonList.add(new Marco(340, 340, 0, 0, "Marco", app));
-		for (int i = 1; i < 20; i++) {
-			automatonList.add(new Polo((int) app.random(10, 980), (int) app.random(10, 680), 0, 0, "Polo", app));
+
+		for (int i = 0; i < 20; i++) {
+
+			poloList.add(new Polo((int) app.random(30, 970), (int) app.random(30, 970), 3, -3, "Polo", app));
+
 		}
-		System.out.println(automatonList.size());
-		
+
+		marco = new Marco(340, 340, 0, 0,"Marco",app);
+
 	}
-	
+
 	public void drawAutomatons() {
-		automatonList.get(0).drawAutomaton("Marco");
-		
-		for (int i = 1; i < automatonList.size(); i++) {
-			automatonList.get(i).drawAutomaton("Polo");
-			//System.out.println(automatonList.get(0).getMessage());
+		marco.drawMarco();
+
+		for (int i = 0; i < poloList.size(); i++) {
+			poloList.get(i).drawPolo();
+			poloList.get(i).movePolo();
+			// System.out.println(automatonList.get(0).getMessage());
 		}
-		
-		
+
 	}
-	
 
 }

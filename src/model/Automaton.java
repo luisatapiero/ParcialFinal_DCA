@@ -3,33 +3,57 @@ package model;
 import processing.core.PApplet;
 
 public class Automaton {
-	
+
 	protected PApplet app;
-	protected int posX, posY, speed, direction;
+	protected int posX, posY, speedX, speedY;
 	protected String message;
 	protected final int sizeBall;
 
-	public Automaton(int posX, int posY, int speed, int direction, String message, PApplet app) {
+	public Automaton(int posX, int posY, int speedX, int speedY, String message, PApplet app) {
 		this.posX = posX;
 		this.posY = posY;
-		this.speed = speed;
-		this.direction = direction;
+		this.speedX = speedX;
+		this.speedY = speedY;
 		this.app = app;
-		
+
 		sizeBall = 30;
 	}
-	
+
 	public void drawAutomaton(String message) {
-		app.text(message+": "+posX+","+posY, posX - sizeBall/2, posY+sizeBall);
+
 		app.circle(posX, posY, sizeBall);
-		
-		//app.text(message+": "+posX+","+posY, posX, posY+sizeBall);
+		app.fill(251, 254, 249);
+		// app.text(message+": "+posX+","+posY, posX - sizeBall/2, posY+sizeBall);
+
+		// app.text(message+": "+posX+","+posY, posX, posY+sizeBall);
 	}
-	
+
 	public void moveAutomaton() {
-		
+		posX += speedX;
+		posY += speedY;
+
+		if(posX> 1000) {
+		    posX= 1000;
+		    speedX = -speedX;
+
+		  }
+		  if(posY > 700) {
+		    posY = 700;
+		    speedY = -speedY;
+
+		  }
+		  if(posX< 0) {
+		    posX= 0;
+		    speedX = -speedX;
+
+		  }
+		  if(posY < 0) {
+		    posY = 0;
+		    speedY = -speedY;
+
+		  }
+
 	}
-	
 
 	public int getPosX() {
 		return posX;
@@ -47,21 +71,23 @@ public class Automaton {
 		this.posY = posY;
 	}
 
-	public int getSpeed() {
-		return speed;
+	public int getSpeedX() {
+		return speedX;
 	}
 
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public void setSpeedX(int speed) {
+		this.speedX = speed;
+	}
+	
+	public int getSpeedY() {
+		return speedY;
 	}
 
-	public int getDirection() {
-		return direction;
+	public void setSpeedY(int speed) {
+		this.speedY = speed;
 	}
 
-	public void setDirection(int direction) {
-		this.direction = direction;
-	}
+
 
 	public String getMessage() {
 		return message;
@@ -74,8 +100,5 @@ public class Automaton {
 	public int getSizeBall() {
 		return sizeBall;
 	}
-
-	
-	
 
 }

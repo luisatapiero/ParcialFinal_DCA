@@ -4,18 +4,23 @@ import processing.core.PApplet;
 
 public class Polo extends Automaton{
 
-	public Polo(int posX, int posY, int speed, int direction, String message, PApplet app) {
-		super(posX, posY, speed, direction, message, app);
-		message = "Polo";
+	public Polo(int posX, int posY, int speedX, int speedY, String message, PApplet app) {
+		super(posX, posY, speedX, speedY, message, app);
 	}
 
-	public void drawAutomaton() {
-		super.drawAutomaton("Polo");
-		System.out.println("pinto");
+	public void drawPolo() {
+		
+		
 		app.noStroke();
 		app.fill(144, 70, 207);
-		
+		super.drawAutomaton("Polo");
 		
 
+	}
+	
+	
+	public void movePolo() {
+		super.moveAutomaton();
+		//System.out.println("move");
 	}
 }
