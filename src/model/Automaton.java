@@ -32,26 +32,26 @@ public class Automaton {
 		posX += speedX;
 		posY += speedY;
 
-		if(posX> 1000) {
-		    posX= 1000;
-		    speedX = -speedX;
+		if (posX > 1000) {
+			posX = 1000;
+			speedX = -speedX;
 
-		  }
-		  if(posY > 700) {
-		    posY = 700;
-		    speedY = -speedY;
+		}
+		if (posY > 700) {
+			posY = 700;
+			speedY = -speedY;
 
-		  }
-		  if(posX< 0) {
-		    posX= 0;
-		    speedX = -speedX;
+		}
+		if (posX < 0) {
+			posX = 0;
+			speedX = -speedX;
 
-		  }
-		  if(posY < 0) {
-		    posY = 0;
-		    speedY = -speedY;
+		}
+		if (posY < 0) {
+			posY = 0;
+			speedY = -speedY;
 
-		  }
+		}
 
 	}
 
@@ -78,7 +78,7 @@ public class Automaton {
 	public void setSpeedX(int speed) {
 		this.speedX = speed;
 	}
-	
+
 	public int getSpeedY() {
 		return speedY;
 	}
@@ -86,8 +86,6 @@ public class Automaton {
 	public void setSpeedY(int speed) {
 		this.speedY = speed;
 	}
-
-
 
 	public String getMessage() {
 		return message;
