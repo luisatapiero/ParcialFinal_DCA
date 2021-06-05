@@ -52,6 +52,7 @@ public class World {
 	private void drawAutomatons() {
 		drawMarco();
 		drawPolo();
+		playAgain();
 	}
 
 	private void drawMarco() {
@@ -151,13 +152,16 @@ public class World {
 			if (marco.getSpeedY() < 0) {
 				marco.setSpeedY(marco.getSpeedX());
 			} else if (marco.getSpeedY() > 0) {
-				marco.setSpeedY(marco.getSpeedX() * -1);
+				marco.setSpeedY(marco.getSpeedY() * -1);
 			}
+		} else if (marco.getPosY() == 0) {
+			marco.setSpeedY(marco.getSpeedY() * 0);
+		} else if (marco.getPosX() == 0) {
+			marco.setSpeedX(marco.getSpeedX() * 0);
 		}
 		new Thread(marco).start();
 		catchPolo();
 	}
-
 
 	private void catchPolo() {
 		if (PApplet.dist(marco.getPosX(), marco.getPosY(), poloList.get(numSelected).getPosX(),
@@ -169,6 +173,17 @@ public class World {
 
 		stopMoving = false;
 		numSelected = 0;
+	}
+	
+	private void playAgain() {
+		if (poloList.size() == 1) {
+
+			for (int i = 0; i < 20; i++) {
+
+				poloList.add(new Polo((int) app.random(30, 970), (int) app.random(30, 970), speed, -speed, "Polo", app));
+
+			}
+		}
 	}
 
 }
