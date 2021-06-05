@@ -2,14 +2,13 @@ package model;
 
 import processing.core.PApplet;
 
-public class Marco extends Automaton implements Runnable{
+public class Marco extends Automaton implements Runnable {
 
-	
 	private boolean stopMoving;
-	
+
 	public Marco(int posX, int posY, int speedX, int speedY, String message, PApplet app) {
 		super(posX, posY, speedX, speedY, message, app);
-		
+
 		stopMoving = false;
 	}
 
@@ -23,13 +22,14 @@ public class Marco extends Automaton implements Runnable{
 	}
 
 	public void moveMarco() {
-		
+
 		if (stopMoving == true) {
-			
-			
-			super.moveAutomaton();
+			if (posX < app.width && posX > 0 && posY < app.height && posY > 0) {
+				super.moveAutomaton();
+			}
+
 		}
-		
+
 		stopMoving = false;
 
 	}
