@@ -14,16 +14,17 @@ public class Automaton {
 		this.posY = posY;
 		this.speedX = speedX;
 		this.speedY = speedY;
+		this.message = message;
 		this.app = app;
 
 		sizeBall = 30;
 	}
 
-	public void drawAutomaton(String message) {
+	public void drawAutomaton() {
 
 		app.circle(posX, posY, sizeBall);
 		app.fill(251, 254, 249);
-		// app.text(message+": "+posX+","+posY, posX - sizeBall/2, posY+sizeBall);
+		
 
 		// app.text(message+": "+posX+","+posY, posX, posY+sizeBall);
 	}

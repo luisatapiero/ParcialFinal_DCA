@@ -13,7 +13,7 @@ public class Polo extends Automaton implements Runnable{
 		
 		app.noStroke();
 		app.fill(144, 70, 207);
-		super.drawAutomaton("Polo");
+		super.drawAutomaton();
 		
 
 	}
@@ -22,6 +22,10 @@ public class Polo extends Automaton implements Runnable{
 	private void movePolo() {
 		super.moveAutomaton();
 		//System.out.println("move");
+	}
+	
+	public void sayMessage() {
+		app.text(message+": "+posX+","+posY, posX - sizeBall/2, posY+sizeBall);
 	}
 
 	@Override

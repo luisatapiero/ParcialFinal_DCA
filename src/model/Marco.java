@@ -15,7 +15,7 @@ public class Marco extends Automaton implements Runnable{
 		app.stroke(255, 107, 53);
 		app.strokeWeight(5);
 		app.noFill();
-		super.drawAutomaton("Marco");
+		super.drawAutomaton();
 		
 		
 		
@@ -24,10 +24,25 @@ public class Marco extends Automaton implements Runnable{
 	private void moveMarco() {
 		super.moveAutomaton();
 	}
+	
+	public void sayMessage() {
+		
+		app.text(message, posX - sizeBall/2, posY+sizeBall);
+	}
 
 	@Override
 	public void run() {
-		moveMarco();
+		
+		moveAutomaton();
+		
+		try {
+			
+			Thread.sleep(10);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 
