@@ -44,6 +44,7 @@ public class World {
 		app.text("Tiempo: " + currentTime / 1000, 60, 60);
 
 		marco.drawMarco();
+		sayMessagePolo();
 		if (stopMoving == false) {
 			new Thread(marco).start();
 		}
@@ -57,24 +58,31 @@ public class World {
 			
 		}
 		
-		sayMessage();
+		//sayMessage();
 		
 		
 
 	}
 
-	private void sayMessage() {
+	private boolean sayMessageMarco() {
 		if (currentTime / 1000 % 2 == 0 && currentTime / 1000 != 0) {
-			//stopMoving = true;
+			stopMoving = true;
 			marco.sayMessage();
+			return true;
+		}
+		return false;
+		
+		//
+	}
+	
+	
+	private void sayMessagePolo() {
+		if (sayMessageMarco()) {
 			for (int i = 0; i < poloList.size(); i++) {
 				poloList.get(i).sayMessage();
 			}
-			
-			
 		}
 		
-		//
 	}
 
 }
