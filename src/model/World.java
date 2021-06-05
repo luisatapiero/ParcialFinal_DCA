@@ -11,7 +11,7 @@ public class World {
 	private ArrayList<Polo> poloList;
 	private int startTime, currentTime, selectedPoloX, selectedPoloY;
 	private boolean stopMoving;
-	private int speed;
+	private int speed, numSelected;
 
 	public World(PApplet app) {
 
@@ -23,6 +23,7 @@ public class World {
 		selectedPoloX = 0;
 		selectedPoloY = 0;
 		speed = 2;
+		numSelected = 0;
 
 		createAutomatons();
 
@@ -36,7 +37,7 @@ public class World {
 
 		}
 
-		marco = new Marco(app.width / 2, app.height / 2, speed * 2, -speed * 2, "Marco", app);
+		marco = new Marco(app.width / 2, app.height / 2, speed * 2, speed * 2, "Marco", app);
 
 	}
 
@@ -86,45 +87,67 @@ public class World {
 			for (int i = 0; i < poloList.size(); i++) {
 
 				poloList.get(i).sayMessage();
+				//poloList.get(i).setStopMoving(true);
 
 			}
 
 		}
 		calculateDistance();
 		//stopMoving = true;
-		chasePolo();
+		//chasePolo();
 	}
 
 	private void calculateDistance() {
 
 		selectedPoloX = poloList.get(0).getPosX();
 		selectedPoloY = poloList.get(0).getPosY();
+		//System.out.println("PRIMERO "+selectedPoloX + " " + selectedPoloY);
 
 		int distanceSelected = (int) PApplet.dist(marco.getPosX(), marco.getPosY(), selectedPoloX, selectedPoloY);
-
 		for (int i = 1; i < poloList.size(); i++) {
 			// marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY);
 
 			if ((marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY)) < distanceSelected) {
-				selectedPoloX = poloList.get(i).getPosX();
-				selectedPoloY = poloList.get(i).getPosY();
+				
+				numSelected = i;
 			}
 		}
-
+		
+		selectedPoloX = poloList.get(numSelected).getPosX();
+		selectedPoloY = poloList.get(numSelected).getPosY();
+		
 		System.out.println(selectedPoloX + " " + selectedPoloY);
-
+		chasePolo(selectedPoloX, selectedPoloY);
 	}
 
-	private void chasePolo() {
+	private void chasePolo(int selectedPoloX, int selectedPoloY) {
 		// new Thread (marco).start();
 
-			marco.moveMarco(selectedPoloX, selectedPoloY);
+			//marco.moveMarco();
+			new Thread (marco).start();
+			
+			if (marco.getPosX() < selectedPoloX) {
+				marco.setSpeedX(marco.getSpeedX()*1);
+			} else if (marco.getPosX() > selectedPoloX){
+				marco.setSpeedX(marco.getSpeedX()*-1);
+			} 
+
+			if (marco.getPosY() < selectedPoloY) {
+				marco.setSpeedY(marco.getSpeedY()*1);
+			} else if (marco.getPosY() > selectedPoloY){
+				marco.setSpeedY(marco.getSpeedY()*-1);
+			} 
 			
 			// new Thread(marco).start();
-	
-		
-		
+			catchPolo();
 
+	}
+	
+	private void catchPolo() {
+		if (marco.getPosX() > selectedPoloX && marco.getPosY() == selectedPoloY) {
+			poloList.remove(numSelected);
+			System.out.println("remove");
+		}
 	}
 
 }

@@ -22,20 +22,10 @@ public class Marco extends Automaton implements Runnable{
 
 	}
 
-	public void moveMarco(int selectedPosX, int selectedPosY) {
+	public void moveMarco() {
 		
 		if (stopMoving == true) {
-			if (posX < selectedPosX) {
-				speedX *= (1);
-			} else if (posX > selectedPosX){
-				speedX *= (-1);
-			} 
-
-			if (posY < selectedPosY) {
-				speedY *= (1);
-			} else if (posY > selectedPosY){
-				speedY *= (-1);
-			} 
+			
 			
 			super.moveAutomaton();
 		}
@@ -61,7 +51,7 @@ public class Marco extends Automaton implements Runnable{
 	public void run() {
 
 		// sayMessage();
-		//moveMarco(selectedSpeedY, selectedSpeedY, selectedSpeedY, selectedSpeedY);
+		moveMarco();
 
 		try {
 

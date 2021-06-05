@@ -4,8 +4,12 @@ import processing.core.PApplet;
 
 public class Polo extends Automaton implements Runnable{
 
+	//private boolean stopMoving;
+	
+	
 	public Polo(int posX, int posY, int speedX, int speedY, String message, PApplet app) {
 		super(posX, posY, speedX, speedY, message, app);
+		//stopMoving = false;
 	}
 
 	public void drawPolo() {
@@ -21,30 +25,33 @@ public class Polo extends Automaton implements Runnable{
 	
 	public void movePolo() {
 		
+		//if (stopMoving = false) {
+			if (posX > app.width) {
+				posX = app.width;
+				speedX = -speedX;
+
+			}
+			if (posY > app.height) {
+				posY = app.height;
+				speedY = -speedY;
+
+			}
+			if (posX < 0) {
+				posX = 0;
+				speedX = -speedX;
+
+			}
+			if (posY < 0) {
+				posY = 0;
+				speedY = -speedY;
+
+			}
+			
+			super.moveAutomaton();
+			//+System.out.println("move");
+		//}
 		
-		if (posX > app.width) {
-			posX = app.width;
-			speedX = -speedX;
-
-		}
-		if (posY > app.height) {
-			posY = app.height;
-			speedY = -speedY;
-
-		}
-		if (posX < 0) {
-			posX = 0;
-			speedX = -speedX;
-
-		}
-		if (posY < 0) {
-			posY = 0;
-			speedY = -speedY;
-
-		}
 		
-		super.moveAutomaton();
-		//+System.out.println("move");
 	}
 	
 
@@ -67,6 +74,14 @@ public class Polo extends Automaton implements Runnable{
 		}
 		
 	}
+
+	/*public boolean isStopMoving() {
+		return stopMoving;
+	}
+
+	public void setStopMoving(boolean stopMoving) {
+		this.stopMoving = stopMoving;
+	}*/
 
 
 
