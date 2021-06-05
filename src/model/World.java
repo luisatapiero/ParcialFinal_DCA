@@ -10,7 +10,7 @@ public class World {
 	private Marco marco;
 	private ArrayList<Polo> poloList;
 	private int startTime, currentTime, selectedPoloX, selectedPoloY;
-	private boolean stopMoving;
+	//private boolean stopMoving;
 	private int speed, numSelected;
 
 	public World(PApplet app) {
@@ -19,7 +19,7 @@ public class World {
 		poloList = new ArrayList<Polo>();
 		startTime = app.millis();
 		currentTime = 0;
-		stopMoving = false;
+		//stopMoving = false;
 		selectedPoloX = 0;
 		selectedPoloY = 0;
 		speed = 2;
@@ -63,9 +63,9 @@ public class World {
 	private void drawPolo() {
 		for (int i = 0; i < poloList.size(); i++) {
 			poloList.get(i).drawPolo();
-			if (stopMoving == false) {
+			//if (stopMoving == false) {
 				new Thread(poloList.get(i)).start();
-			}
+			//}
 		}
 		sayMessagePolo();
 	}
@@ -74,7 +74,7 @@ public class World {
 
 		if (currentTime / 1000 % 2 == 0 && currentTime / 1000 != 0) {
 			marco.sayMessage();
-			stopMoving = true;
+			//stopMoving = true;
 
 			return true;
 		}
@@ -104,7 +104,7 @@ public class World {
 		// System.out.println("PRIMERO "+selectedPoloX + " " + selectedPoloY);
 
 		for (int i = 1; i < poloList.size(); i++) {
-			int distanceSelected = (int) app.dist(marco.getPosX(), marco.getPosY(), selectedPoloX, selectedPoloY);
+			int distanceSelected = (int) PApplet.dist(marco.getPosX(), marco.getPosY(), selectedPoloX, selectedPoloY);
 			if ((marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY)) < distanceSelected) {
 
 				numSelected = i;
@@ -165,18 +165,21 @@ public class World {
 
 	private void catchPolo() {
 		if (PApplet.dist(marco.getPosX(), marco.getPosY(), poloList.get(numSelected).getPosX(),
-				poloList.get(numSelected).getPosY()) < 50 && stopMoving == true) {
-			poloList.remove(numSelected);
-			System.out.println("remove");
-			stopMoving = false;
+				poloList.get(numSelected).getPosY()) < 50) {
+			for (int i = 0; i < 1; i++) {
+				poloList.remove(numSelected);
+				System.out.println("remove");
+			}
+			
+			//stopMoving = false;
 		}
 
-		stopMoving = false;
+		//stopMoving = false;
 		numSelected = 0;
 	}
 	
 	private void playAgain() {
-		if (poloList.size() == 1) {
+		if (poloList.size() == 0) {
 
 			for (int i = 0; i < 20; i++) {
 
