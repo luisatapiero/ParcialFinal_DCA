@@ -42,7 +42,7 @@ public class World {
 	}
 
 	public void draw() {
-		
+
 		currentTime = app.millis() - startTime;
 		app.text("Tiempo: " + currentTime / 1000, 60, 60);
 
@@ -63,7 +63,7 @@ public class World {
 		for (int i = 0; i < poloList.size(); i++) {
 			poloList.get(i).drawPolo();
 			if (stopMoving == false) {
-			new Thread(poloList.get(i)).start();
+				new Thread(poloList.get(i)).start();
 			}
 		}
 		sayMessagePolo();
@@ -84,75 +84,93 @@ public class World {
 	private void sayMessagePolo() {
 
 		if (sayMessageMarco()) {
-			
 
 			for (int i = 0; i < poloList.size(); i++) {
 
 				poloList.get(i).sayMessage();
-				//poloList.get(i).setStopMoving(true);
+				// poloList.get(i).setStopMoving(true);
 
 			}
 			calculateDistance();
 		}
-		
-		//stopMoving = true;
-		//chasePolo();
+
 	}
 
 	private void calculateDistance() {
 
 		selectedPoloX = poloList.get(0).getPosX();
 		selectedPoloY = poloList.get(0).getPosY();
-		//System.out.println("PRIMERO "+selectedPoloX + " " + selectedPoloY);
+		// System.out.println("PRIMERO "+selectedPoloX + " " + selectedPoloY);
 
 		
 		for (int i = 1; i < poloList.size(); i++) {
-			// marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY);
-			int distanceSelected = (int) PApplet.dist(marco.getPosX(), marco.getPosY(), selectedPoloX, selectedPoloY);
-			if ((marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY)) < distanceSelected) {
-				
-				numSelected = i;
-				selectedPoloX = poloList.get(numSelected).getPosX();
-				selectedPoloY = poloList.get(numSelected).getPosY();
+			int distanceSelected = (int) app.dist(marco.getPosX(), marco.getPosY(), selectedPoloX, selectedPoloY);
+				if ((marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY)) < distanceSelected) {
+
+					numSelected = i;
+					selectedPoloX = poloList.get(numSelected).getPosX();
+					selectedPoloY = poloList.get(numSelected).getPosY();
+
+				// marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY);
+
 			}
 		}
-		
-		selectedPoloX = poloList.get(numSelected).getPosX();
-		selectedPoloY = poloList.get(numSelected).getPosY();
+
 		
 		System.out.println(selectedPoloX + " " + selectedPoloY);
+		System.out.println(numSelected);
 		chasePolo();
 	}
 
 	private void chasePolo() {
 
-			
-			
-			if (marco.getPosX() < poloList.get(numSelected).getPosX()) {
-				marco.setSpeedX(marco.getSpeedX()*1);
-			} else if (marco.getPosX() > poloList.get(numSelected).getPosX()){
+		if (marco.getPosX() < poloList.get(numSelected).getPosX()) {
+			if (marco.getSpeedX() > 0) {
+				marco.setSpeedX(marco.getSpeedX());
+			}else {
 				marco.setSpeedX(marco.getSpeedX()*-1);
-			} 
+			}
+			
+		} else if (marco.getPosX() > poloList.get(numSelected).getPosX()) {
+			//marco.setSpeedX(-marco.getSpeedX());
+			
+			if (marco.getSpeedX() < 0) {
+				marco.setSpeedX(marco.getSpeedX());
+			}else {
+				marco.setSpeedX(marco.getSpeedX()*-1);
+			}
+		}
 
-			if (marco.getPosY() < poloList.get(numSelected).getPosY()) {
-				marco.setSpeedY(marco.getSpeedY()*1);
-			} else if (marco.getPosY() > poloList.get(numSelected).getPosY()){
-				marco.setSpeedY(marco.getSpeedY()*-1);
-			} 
+		if (marco.getPosY() < poloList.get(numSelected).getPosY()) {
+			//marco.setSpeedY(marco.getSpeedY());
 			
-			new Thread (marco).start();
+			if (marco.getSpeedX() > 0) {
+				marco.setSpeedX(marco.getSpeedX());
+			}else {
+				marco.setSpeedX(marco.getSpeedX()*-1);
+			}
 			
-			catchPolo();
+		} else if (marco.getPosY() > poloList.get(numSelected).getPosY()) {
+			//marco.setSpeedY(-marco.getSpeedY());
+			if (marco.getSpeedX() < 0) {
+				marco.setSpeedX(marco.getSpeedX());
+			}else {
+				marco.setSpeedX(marco.getSpeedX()*-1);
+			}
+		}
+		new Thread(marco).start();
+		catchPolo();
 
 	}
-	
+
 	private void catchPolo() {
-		if (PApplet.dist(marco.getPosX(), marco.getPosY(), poloList.get(numSelected).getPosX(),poloList.get(numSelected).getPosY()) < 30 && stopMoving == true){
+		if (PApplet.dist(marco.getPosX(), marco.getPosY(), poloList.get(numSelected).getPosX(),
+				poloList.get(numSelected).getPosY()) < 50 && stopMoving == true) {
 			poloList.remove(numSelected);
 			System.out.println("remove");
 			stopMoving = false;
 		}
-		
+
 		stopMoving = false;
 	}
 
