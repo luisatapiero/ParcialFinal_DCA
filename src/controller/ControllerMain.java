@@ -14,8 +14,8 @@ public class ControllerMain {
 	
 	}
 	
-	public void drawAutomatons() {
-		world.drawAutomatons();
+	public void draw() {
+		world.draw();
 		
 	}
 

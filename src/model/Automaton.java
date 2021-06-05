@@ -2,7 +2,7 @@ package model;
 
 import processing.core.PApplet;
 
-public class Automaton implements Runnable{
+public class Automaton{
 
 	protected PApplet app;
 	protected int posX, posY, speedX, speedY;
@@ -33,13 +33,13 @@ public class Automaton implements Runnable{
 		posX += speedX;
 		posY += speedY;
 
-		if (posX > 1000) {
-			posX = 1000;
+		if (posX > app.width) {
+			posX = app.width;
 			speedX = -speedX;
 
 		}
-		if (posY > 700) {
-			posY = 700;
+		if (posY > app.height) {
+			posY = app.height;
 			speedY = -speedY;
 
 		}
@@ -56,20 +56,7 @@ public class Automaton implements Runnable{
 
 	}
 	
-	@Override
-	public void run() {
-		moveAutomaton();
-		
-		try {
-			
-			Thread.sleep(10);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
+	
 
 	public int getPosX() {
 		return posX;
