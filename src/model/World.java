@@ -102,21 +102,19 @@ public class World {
 		selectedPoloY = poloList.get(0).getPosY();
 		// System.out.println("PRIMERO "+selectedPoloX + " " + selectedPoloY);
 
-		
 		for (int i = 1; i < poloList.size(); i++) {
 			int distanceSelected = (int) app.dist(marco.getPosX(), marco.getPosY(), selectedPoloX, selectedPoloY);
-				if ((marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY)) < distanceSelected) {
+			if ((marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY)) < distanceSelected) {
 
-					numSelected = i;
-					selectedPoloX = poloList.get(numSelected).getPosX();
-					selectedPoloY = poloList.get(numSelected).getPosY();
+				numSelected = i;
+				selectedPoloX = poloList.get(numSelected).getPosX();
+				selectedPoloY = poloList.get(numSelected).getPosY();
 
 				// marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY);
 
 			}
 		}
 
-		
 		System.out.println(selectedPoloX + " " + selectedPoloY);
 		System.out.println(numSelected);
 		chasePolo();
@@ -127,41 +125,39 @@ public class World {
 		if (marco.getPosX() < poloList.get(numSelected).getPosX()) {
 			if (marco.getSpeedX() > 0) {
 				marco.setSpeedX(marco.getSpeedX());
-			}else {
-				marco.setSpeedX(marco.getSpeedX()*-1);
+			} else if (marco.getSpeedX() < 0) {
+				marco.setSpeedX(marco.getSpeedX() * -1);
 			}
-			
+
 		} else if (marco.getPosX() > poloList.get(numSelected).getPosX()) {
-			//marco.setSpeedX(-marco.getSpeedX());
-			
+
 			if (marco.getSpeedX() < 0) {
 				marco.setSpeedX(marco.getSpeedX());
-			}else {
-				marco.setSpeedX(marco.getSpeedX()*-1);
+			} else if (marco.getSpeedX() > 0) {
+				marco.setSpeedX(marco.getSpeedX() * -1);
 			}
 		}
 
 		if (marco.getPosY() < poloList.get(numSelected).getPosY()) {
-			//marco.setSpeedY(marco.getSpeedY());
-			
-			if (marco.getSpeedX() > 0) {
-				marco.setSpeedX(marco.getSpeedX());
-			}else {
-				marco.setSpeedX(marco.getSpeedX()*-1);
+
+			if (marco.getSpeedY() > 0) {
+				marco.setSpeedY(marco.getSpeedY());
+			} else if (marco.getSpeedY() < 0) {
+				marco.setSpeedY(marco.getSpeedY() * -1);
 			}
-			
+
 		} else if (marco.getPosY() > poloList.get(numSelected).getPosY()) {
-			//marco.setSpeedY(-marco.getSpeedY());
-			if (marco.getSpeedX() < 0) {
-				marco.setSpeedX(marco.getSpeedX());
-			}else {
-				marco.setSpeedX(marco.getSpeedX()*-1);
+
+			if (marco.getSpeedY() < 0) {
+				marco.setSpeedY(marco.getSpeedX());
+			} else if (marco.getSpeedY() > 0) {
+				marco.setSpeedY(marco.getSpeedX() * -1);
 			}
 		}
 		new Thread(marco).start();
 		catchPolo();
-
 	}
+
 
 	private void catchPolo() {
 		if (PApplet.dist(marco.getPosX(), marco.getPosY(), poloList.get(numSelected).getPosX(),
@@ -172,6 +168,7 @@ public class World {
 		}
 
 		stopMoving = false;
+		numSelected = 0;
 	}
 
 }
