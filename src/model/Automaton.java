@@ -25,8 +25,6 @@ public class Automaton{
 		app.circle(posX, posY, sizeBall);
 		app.fill(251, 254, 249);
 		
-
-		// app.text(message+": "+posX+","+posY, posX, posY+sizeBall);
 	}
 
 	public void moveAutomaton() {

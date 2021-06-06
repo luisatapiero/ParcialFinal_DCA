@@ -24,11 +24,11 @@ public class Marco extends Automaton implements Runnable {
 	public void moveMarco() {
 
 		if (stopMoving == true) {
-			if (posX < app.width && posX > 0 && posY < app.height && posY > 0) {
+			if (posX < app.width && posX > -2 && posY < app.height && posY > -2) {
 				super.moveAutomaton();
 			} else {
-				posX = app.width/2;
-				posY = app.height/2;
+				posX = app.width / 2;
+				posY = app.height / 2;
 			}
 
 		}
@@ -38,9 +38,8 @@ public class Marco extends Automaton implements Runnable {
 	}
 
 	public int calculateDistance(int posXPolo, int posYPolo) {
-		
-			
-		int distance = (int) app.dist(posX, posY, posXPolo, posYPolo);
+
+		int distance = (int) PApplet.dist(posX, posY, posXPolo, posYPolo);
 
 		return distance;
 
@@ -55,7 +54,6 @@ public class Marco extends Automaton implements Runnable {
 	@Override
 	public void run() {
 
-		// sayMessage();
 		moveMarco();
 
 		try {
@@ -67,6 +65,5 @@ public class Marco extends Automaton implements Runnable {
 		}
 
 	}
-
 
 }

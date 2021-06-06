@@ -10,7 +10,6 @@ public class World {
 	private Marco marco;
 	private ArrayList<Polo> poloList;
 	private int startTime, currentTime, selectedPoloX, selectedPoloY;
-	//private boolean stopMoving;
 	private int speed, numSelected;
 
 	public World(PApplet app) {
@@ -19,10 +18,9 @@ public class World {
 		poloList = new ArrayList<Polo>();
 		startTime = app.millis();
 		currentTime = 0;
-		//stopMoving = false;
 		selectedPoloX = 0;
 		selectedPoloY = 0;
-		speed = 2;
+		speed = 1;
 		numSelected = 0;
 
 		createAutomatons();
@@ -63,10 +61,10 @@ public class World {
 	private void drawPolo() {
 		for (int i = 0; i < poloList.size(); i++) {
 			poloList.get(i).drawPolo();
-			//if (stopMoving == false) {
-				new Thread(poloList.get(i)).start();
-			//}
+			new Thread(poloList.get(i)).start();
+
 		}
+
 		sayMessagePolo();
 	}
 
@@ -74,7 +72,6 @@ public class World {
 
 		if (currentTime / 1000 % 2 == 0 && currentTime / 1000 != 0) {
 			marco.sayMessage();
-			//stopMoving = true;
 
 			return true;
 		}
@@ -89,10 +86,11 @@ public class World {
 			for (int i = 0; i < poloList.size(); i++) {
 
 				poloList.get(i).sayMessage();
-				// poloList.get(i).setStopMoving(true);
 
 			}
+
 			calculateDistance();
+
 		}
 
 	}
@@ -101,7 +99,6 @@ public class World {
 
 		selectedPoloX = poloList.get(0).getPosX();
 		selectedPoloY = poloList.get(0).getPosY();
-		// System.out.println("PRIMERO "+selectedPoloX + " " + selectedPoloY);
 
 		for (int i = 1; i < poloList.size(); i++) {
 			int distanceSelected = (int) PApplet.dist(marco.getPosX(), marco.getPosY(), selectedPoloX, selectedPoloY);
@@ -110,8 +107,6 @@ public class World {
 				numSelected = i;
 				selectedPoloX = poloList.get(numSelected).getPosX();
 				selectedPoloY = poloList.get(numSelected).getPosY();
-
-				// marco.calculateDistance(poloList.get(i).getPosX(), poloList.get(i).posY);
 
 			}
 		}
@@ -124,6 +119,7 @@ public class World {
 	private void chasePolo() {
 
 		if (marco.getPosX() < poloList.get(numSelected).getPosX()) {
+
 			if (marco.getSpeedX() > 0) {
 				marco.setSpeedX(marco.getSpeedX());
 			} else if (marco.getSpeedX() < 0) {
@@ -131,7 +127,6 @@ public class World {
 			}
 
 		} else if (marco.getPosX() > poloList.get(numSelected).getPosX()) {
-
 			if (marco.getSpeedX() < 0) {
 				marco.setSpeedX(marco.getSpeedX());
 			} else if (marco.getSpeedX() > 0) {
@@ -140,7 +135,6 @@ public class World {
 		}
 
 		if (marco.getPosY() < poloList.get(numSelected).getPosY()) {
-
 			if (marco.getSpeedY() > 0) {
 				marco.setSpeedY(marco.getSpeedY());
 			} else if (marco.getSpeedY() < 0) {
@@ -148,9 +142,9 @@ public class World {
 			}
 
 		} else if (marco.getPosY() > poloList.get(numSelected).getPosY()) {
-
 			if (marco.getSpeedY() < 0) {
 				marco.setSpeedY(marco.getSpeedX());
+
 			} else if (marco.getSpeedY() > 0) {
 				marco.setSpeedY(marco.getSpeedY() * -1);
 			}
@@ -159,31 +153,40 @@ public class World {
 		} else if (marco.getPosX() == 0) {
 			marco.setSpeedX(marco.getSpeedX() * 0);
 		}
+
 		new Thread(marco).start();
+
 		catchPolo();
 	}
 
 	private void catchPolo() {
+		escapePolo();
 		if (PApplet.dist(marco.getPosX(), marco.getPosY(), poloList.get(numSelected).getPosX(),
-				poloList.get(numSelected).getPosY()) < 50) {
-			for (int i = 0; i < 1; i++) {
-				poloList.remove(numSelected);
-				System.out.println("remove");
-			}
-			
-			//stopMoving = false;
+				poloList.get(numSelected).getPosY()) < 15) {
+
+			poloList.remove(numSelected);
+			System.out.println("remove");
+
 		}
 
-		//stopMoving = false;
 		numSelected = 0;
+
 	}
 	
-	private void playAgain() {
-		if (poloList.size() == 0) {
+	private void escapePolo() {
+		if (currentTime / 1000 % 3 == 0 && currentTime / 1000 != 0) {
+			poloList.get(numSelected).setSpeedX(-speed);
+			poloList.get(numSelected).setSpeedY(-speed);
+		}
+	}
 
+	private void playAgain() {
+		if (poloList.size() == 0) { //para que no se crashee cuando se eliminen todos los polos
+			
 			for (int i = 0; i < 20; i++) {
 
-				poloList.add(new Polo((int) app.random(30, 970), (int) app.random(30, 970), speed, -speed, "Polo", app));
+				poloList.add(
+						new Polo((int) app.random(30, 970), (int) app.random(30, 970), speed, -speed, "Polo", app));
 
 			}
 		}
